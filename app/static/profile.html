@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Profile | Royal Brothers Fitness Gym</title>
+    <meta
+      name="description"
+      content="View and manage your Royal Brothers Fitness Gym profile and membership."
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Bebas+Neue&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="profile.css" />
+  </head>
+  <body>
+    <!-- ============ HEADER / NAVBAR ============ -->
+    <header class="header" id="header">
+      <nav class="navbar container">
+        <a href="index.html" class="logo">
+          <span class="logo-text"
+            >ROYAL<span class="logo-accent">BROTHERS</span></span
+          >
+          <span class="logo-sub">FITNESS GYM</span>
+        </a>
+
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="membership.html" class="nav-link">Membership</a></li>
+          <li><a href="services.html" class="nav-link">Services</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+          <li><a href="profile.html" class="nav-link active">Profile</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <button id="logoutBtn" class="btn btn-outline">Logout</button>
+        </div>
+
+        <div class="hamburger" id="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </nav>
+    </header>
+
+    <!-- ============ PROFILE CONTENT ============ -->
+    <main class="profile-page">
+      <div class="container">
+        <p id="profileLoading" class="profile-status">
+          Loading your profile...
+        </p>
+        <div id="profileLoggedOut" class="profile-status" style="display: none">
+          You're not logged in.
+          <a href="login.html" class="auth-link">Log in</a> to view your
+          profile.
+        </div>
+
+        <div id="profileContent" style="display: none">
+          <!-- ---------- EXPIRY WARNING BANNER ---------- -->
+          <div id="expiryWarning" class="expiry-warning" style="display: none">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <span id="expiryWarningText"></span>
+          </div>
+
+          <div class="profile-dashboard-grid">
+            <!-- ---------- LEFT: PROFILE HEADER CARD ---------- -->
+            <section class="profile-header-card">
+              <div class="profile-avatar-wrap">
+                <div class="profile-avatar" id="profileAvatar">
+                  <img
+                    src="/royalbrothersgym.jpg"
+                    alt="Royal Brothers Fitness Gym"
+                  />
+                </div>
+              </div>
+
+              <!-- View mode -->
+              <div id="profileViewMode">
+                <h1 id="profileName" class="profile-name">-</h1>
+                <p id="profileEmail" class="profile-email">-</p>
+                <span id="profileGender" class="profile-badge">-</span>
+                <button
+                  type="button"
+                  class="btn btn-outline profile-edit-toggle"
+                  id="editProfileBtn"
+                >
+                  <i class="fa-solid fa-pen"></i> Edit Profile
+                </button>
+              </div>
+
+              <!-- Edit mode (hidden by default) -->
+              <form
+                id="editProfileForm"
+                class="profile-edit-form"
+                style="display: none"
+              >
+                <div class="form-group">
+                  <label for="editFullName">Full Name</label>
+                  <input type="text" id="editFullName" required />
+                </div>
+                <div class="form-group">
+                  <label for="editGender">Gender</label>
+                  <select id="editGender" required>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+                <p id="editProfileError" class="form-error" role="alert"></p>
+                <div class="profile-edit-actions">
+                  <button
+                    type="button"
+                    class="btn btn-outline"
+                    id="cancelEditBtn"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    class="btn btn-neon"
+                    id="saveProfileBtn"
+                  >
+                    Save Changes
+                  </button>
+                </div>
+              </form>
+            </section>
+
+            <!-- ---------- RIGHT: MEMBERSHIP CARD ---------- -->
+            <section class="membership-card-section">
+              <h2 class="section-title-sm">Membership</h2>
+              <div id="membershipCardWrap">
+                <p class="profile-status">Loading membership info...</p>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="auth-cache.js"></script>
+    <script src="script.js"></script>
+    <script src="profile.js"></script>
+  </body>
+</html>
