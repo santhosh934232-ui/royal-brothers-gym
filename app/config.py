@@ -41,17 +41,13 @@ class Config:
     DB_NAME = os.environ.get("DB_NAME", "royal_brothers_gym")
     DB_PORT = int(os.environ.get("DB_PORT", 3306))
 
-    # ---------- Gmail SMTP Settings ----------
-    MAIL_SERVER = os.environ.get("MAIL_SERVER", "smtp.gmail.com")
-    MAIL_PORT = int(os.environ.get("MAIL_PORT", 587))
-    MAIL_USE_TLS = os.environ.get("MAIL_USE_TLS", "True") == "True"
-    MAIL_USE_SSL = os.environ.get("MAIL_USE_SSL", "False") == "True"
-    MAIL_USERNAME = _require_env("MAIL_USERNAME")
-    MAIL_PASSWORD = _require_env("MAIL_PASSWORD")
-    MAIL_DEFAULT_SENDER = (
-        os.environ.get("MAIL_SENDER_NAME", "Royal Brothers Fitness Gym"),
-        MAIL_USERNAME,
+# ---------- Resend API ----------
+    RESEND_API_KEY = _require_env("RESEND_API_KEY")
+    RESEND_FROM_EMAIL = os.environ.get(
+    "RESEND_FROM_EMAIL",
+    "onboarding@resend.dev"
     )
+    
 
     # ---------- App URL (used to build verification/reset links) ----------
     # Set this to your real domain in production (e.g. https://yourgym.com).
