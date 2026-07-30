@@ -43,9 +43,9 @@ class Config:
 
     # ---------- Flask-Mail (Gmail SMTP) Settings ----------
     MAIL_SERVER = "smtp.gmail.com"
-    MAIL_PORT = 587
-    MAIL_USE_TLS = True
-    MAIL_USE_SSL = False
+    MAIL_PORT = 465
+    MAIL_USE_TLS = False
+    MAIL_USE_SSL = True
     MAIL_USERNAME = _require_env("MAIL_USERNAME")
     MAIL_PASSWORD = _require_env("MAIL_PASSWORD")
     MAIL_DEFAULT_SENDER = MAIL_USERNAME
