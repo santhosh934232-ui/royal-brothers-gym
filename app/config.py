@@ -41,13 +41,15 @@ class Config:
     DB_NAME = os.environ.get("DB_NAME", "royal_brothers_gym")
     DB_PORT = int(os.environ.get("DB_PORT", 3306))
 
-# ---------- Resend API ----------
-    RESEND_API_KEY = _require_env("RESEND_API_KEY")
-    RESEND_FROM_EMAIL = os.environ.get(
-    "RESEND_FROM_EMAIL",
-    "onboarding@resend.dev"
-    )
-    
+    # ---------- Flask-Mail (Gmail SMTP) Settings ----------
+    MAIL_SERVER = "smtp.gmail.com"
+    MAIL_PORT = 587
+    MAIL_USE_TLS = True
+    MAIL_USE_SSL = False
+    MAIL_USERNAME = _require_env("MAIL_USERNAME")
+    MAIL_PASSWORD = _require_env("MAIL_PASSWORD")
+    MAIL_DEFAULT_SENDER = MAIL_USERNAME
+    MAIL_TIMEOUT = 10
 
     # ---------- App URL (used to build verification/reset links) ----------
     # Set this to your real domain in production (e.g. https://yourgym.com).

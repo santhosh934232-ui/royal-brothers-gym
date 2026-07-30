@@ -277,6 +277,47 @@
   color: #ff5c7a;
 }
 
+/* ---------- BOTTOM LOGOUT SECTION ---------- */
+.profile-logout-section {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.btn-logout-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 40px;
+  background: rgba(255, 92, 122, 0.1);
+  border: 1px solid #ff5c7a;
+  color: #ff5c7a;
+  font-family: var(--font-primary);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  width: 100%;
+  max-width: 320px;
+}
+
+.btn-logout-danger i {
+  font-size: 1rem;
+}
+
+.btn-logout-danger:hover {
+  background: #ff5c7a;
+  color: #0a0a0a;
+  box-shadow: 0 0 30px rgba(255, 92, 122, 0.3);
+}
+
+.btn-logout-danger:active {
+  transform: scale(0.98);
+}
+
 /* ---------- TOAST (reused pattern) ---------- */
 .toast {
   position: fixed;
@@ -313,5 +354,9 @@
 @media (max-width: 600px) {
   .profile-header-card {
     padding: 28px 22px;
+  }
+
+  .btn-logout-danger {
+    max-width: 100%;
   }
 }

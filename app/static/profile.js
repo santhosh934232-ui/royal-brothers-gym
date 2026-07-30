@@ -333,12 +333,17 @@ async function loadMembershipCard() {
   }
 }
 
-/* ---------- LOGOUT ---------- */
+/* ---------- LOGOUT ----------
+   Handles both the navbar logout button (#logoutBtn, unchanged
+   behavior) and the new profile-page bottom logout button
+   (#logoutBtnProfile), which asks for confirmation first. Both share
+   the same performLogout() call to the existing logout API so there
+   is only one place that talks to the server / clears the cache. */
 function initLogout() {
   const logoutBtn = document.getElementById("logoutBtn");
-  if (!logoutBtn) return;
+  const logoutBtnProfile = document.getElementById("logoutBtnProfile");
 
-  logoutBtn.addEventListener("click", async () => {
+  async function performLogout() {
     try {
       await fetch("/api/auth/logout", {
         method: "POST",
@@ -348,5 +353,18 @@ function initLogout() {
       if (window.AuthCache) window.AuthCache.clearCache();
       window.location.href = "login.html";
     }
-  });
+  }
+
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", performLogout);
+  }
+
+  if (logoutBtnProfile) {
+    logoutBtnProfile.addEventListener("click", () => {
+      const confirmed = window.confirm("Are you sure you want to logout?");
+      if (confirmed) {
+        performLogout();
+      }
+    });
+  }
 }

@@ -15,6 +15,7 @@ from flask import Flask, send_from_directory
 from flask_mail import Mail
 
 from .config import Config
+mail = Mail()
 from .routes.auth_routes import auth_bp
 from .routes.membership_routes import membership_bp
 from .routes.contact_routes import contact_bp
@@ -23,7 +24,7 @@ from .routes.admin_routes import admin_bp
 # Flask-Mail instance, shared by any route module that needs to send
 # email (imported lazily inside functions as `from .. import mail` to
 # avoid circular imports with the blueprints above).
-mail = Mail()
+
 
 
 def create_app():

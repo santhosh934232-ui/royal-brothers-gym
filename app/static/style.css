@@ -344,6 +344,16 @@ button {
   width: 100%;
 }
 
+/* On desktop the "Login" menu item duplicates the standalone Login
+   button in .nav-actions, so it's hidden here. It is restored inside
+   the mobile nav media query below, where .nav-actions itself is
+   hidden and the menu item is the only way to reach Login. No markup
+   changes needed -- this targets the existing Login link by its
+   href so nothing else in the menu is affected. */
+.nav-menu a[href="login.html"] {
+  display: none;
+}
+
 .nav-actions {
   display: flex;
   align-items: center;
@@ -1143,6 +1153,13 @@ button {
 
   .nav-link::after {
     display: none;
+  }
+
+  /* Restore the Login menu item on mobile: .nav-actions (the
+     right-side Login button) is hidden below, so the menu item is
+     the only way to reach Login here. */
+  .nav-menu a[href="login.html"] {
+    display: block;
   }
 
   .nav-actions {

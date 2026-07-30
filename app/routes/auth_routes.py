@@ -19,10 +19,11 @@ import secrets
 import hashlib
 from datetime import datetime, timedelta
  
-import resend
 from flask import Blueprint, request, session, jsonify, current_app
+from flask_mail import Message
 from werkzeug.security import generate_password_hash, check_password_hash
  
+from .. import mail
 from ..models import (
     create_user,
     get_user_by_email,
@@ -79,36 +80,26 @@ def _build_link(path_and_query):
  
  
 # ============================================
-# EMAIL SENDING HELPER (Resend)
+# EMAIL SENDING HELPER (Flask-Mail / Gmail SMTP)
 # ============================================
  
 def send_email(to_email, subject, body):
     """
-    Reusable helper for sending plain-text emails via the Resend API.
-    Mirrors the previous Flask-Mail behavior: on any failure, this
+    Reusable helper for sending plain-text emails via Flask-Mail
+    (Gmail SMTP). Mirrors the previous behavior: on any failure, this
     raises an exception so existing try/except blocks in the routes
     below continue to work exactly as before.
     """
-    resend.api_key = current_app.config["RESEND_API_KEY"]
-    from_email = current_app.config["RESEND_FROM_EMAIL"]
+    msg = Message(
+        subject=subject,
+        recipients=[to_email],
+        body=body,
+        sender=current_app.config["MAIL_DEFAULT_SENDER"],
+    )
  
-    params = {
-        "from": from_email,
-        "to": [to_email],
-        "subject": subject,
-        "text": body,
-    }
- 
-    # resend.Emails.send raises on network/API errors. Some versions of
-    # the SDK can also return an error payload instead of raising, so we
-    # explicitly check for that and raise ourselves to preserve the
-    # "raise on failure" contract that mail.send() used to provide.
-    response = resend.Emails.send(params)
- 
-    if isinstance(response, dict) and response.get("error"):
-        raise Exception(f"Resend API error: {response['error']}")
- 
-    return response
+    # mail.send() raises on SMTP/network errors, preserving the
+    # "raise on failure" contract the routes below expect.
+    mail.send(msg)
  
  
 def _send_verification_email(user):
